@@ -28,7 +28,10 @@ trash2=pygame.image.load('trash2.jpg').convert()
 clock=pygame.time.Clock()
 
 # 4 - set up variables
-numlitter = 2
+# a value of 3 is the player
+# a value of 2 is trash pic 2
+# a value of 1 is trash pic 1
+numlitter = 3
 grid[3][2]=1
 grid[2][4]=2
 grid[0][1]=1
@@ -37,15 +40,41 @@ grid[0][0]=3 #player start
 # 5 - keep looping through until condition met
 while (numlitter > 0):
 
+# Move player based on how-to at:
+# https://opensource.com/article/17/12/game-python-moving-player
   for event in pygame.event.get():
     if event.type == pygame.QUIT:
-      done = True
-    elif event.type == pygame.MOUSEBUTTONDOWN:
-      pos = pygame.mouse.get_pos()
-      column = pos[0]
-      row = pos[1]
-      grid[row][column] = 1
-      print("Click ", pos, "Grid coordinates: ", row, column)
+      done = True; pygame.quit()
+      sys.exit(); numlitter == 0
+    elif event.type == pygame.KEYDOWN:
+      if event.key == pygame.K_LEFT or event.key == ord('a'):
+        print('left')
+      elif event.key == pygame.K_RIGHT or event.key == ord('d'):
+        print('right')
+      elif event.key == pygame.K_UP or event.key == ord('w'):
+        print('up')
+      elif event.key == pygame.K_DOWN or event.key == ord('s'):
+        print('down')
+    elif event.type == pygame.KEYUP:
+      if event.key == pygame.K_LEFT or event.key == ord('a'):
+        print('left stop')
+      elif event.key == pygame.K_RIGHT or event.key == ord('d'):
+        print('right stop')
+      elif event.key == pygame.K_UP or event.key == ord('w'):
+        print('up stop')
+      elif event.key == pygame.K_DOWN or event.key == ord('s'):
+        print('down stop')
+      elif event.key == ord('q'):
+        print('quit game'); pygame.quit()
+        sys.exit(); numlitter == 0
+        
+##      pos = pygame.mouse.get_pos()
+##      column = pos[0]
+##      row = pos[1]
+##      grid[row][column] = 1
+##      print("Click ", pos, "Grid coordinates: ", row, column)
+
+  #reset screen
   screen.fill(BLACK)        
       
   # Draw the grid
